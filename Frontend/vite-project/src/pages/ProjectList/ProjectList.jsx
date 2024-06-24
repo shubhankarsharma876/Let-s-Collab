@@ -8,12 +8,14 @@ import { Label } from '@radix-ui/react-label'
 import { Input } from '@/components/ui/input'
 import ProjectCard from '../projects/ProjectCard'
 
+export const tags = [
+    "all", "react", "nextjs", "spring boot", "mysql", "mongodb", "python", "nodejs", "flask", "django"
+];
+
 function ProjectList() {
     const [keyword, setKeyword] = useState("");
 
-    const tags = [
-        "all", "react", "nextjs", "springboot", "mysql", "mongodb", "python", "nodejs", "flask", "django"
-    ];
+    
 
     const handleFilterChange = (section, value) => {
         console.log(section, value);
