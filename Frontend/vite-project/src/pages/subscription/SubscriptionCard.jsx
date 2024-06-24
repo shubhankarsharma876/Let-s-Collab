@@ -17,9 +17,10 @@ function SubscriptionCard({ data }) {
             </Button>
 
             <div>
-                <div>
+                {data.features.map((item)=><div key={item} className='flex items-center gap-2'>
                     <CheckCircledIcon/>
-                </div>
+                    <p className=''>{item}</p>
+                </div>)}
             </div>
 
         </div>

@@ -5,11 +5,13 @@ import Navigation from './pages/navigation/Navigation'
 import ProjectDetails from './pages/project details/ProjectDetails'
 import IssueDetails from './pages/issueDetails/IssueDetails'
 import Subscription from './pages/subscription/Subscription'
+import Auth from './pages/auth/Auth'
 
 function App() {
 
   return (
     <>
+    {true?<div>
       <Navigation />
 
       <Routes>
@@ -20,6 +22,7 @@ function App() {
 
 
       </Routes>
+    </div>:<Auth/>}
     </>
   )
 }
