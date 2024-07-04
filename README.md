@@ -1,6 +1,6 @@
 # Let's Collab
 Live at [https://letscollab.vercel.app/](https://letscollab.vercel.app/)
-Backend will be available soon for completely live!!!
+Backend will be available soon!!!
 ***
 
 The place to manage your projects.
