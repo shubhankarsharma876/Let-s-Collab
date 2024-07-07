@@ -6,9 +6,18 @@ import CreateProjectForm from '../projects/CreateProjectForm'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { PersonIcon } from '@radix-ui/react-icons'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { store } from '@/redux/Store'
+import { logout } from '@/redux/Auth/Action'
 
 function Navigation() {
+    const {auth} = useSelector(store=>store)
     const navigate = useNavigate();
+    const dispatch = useDispatch()
+
+    const handleLogout=()=>{
+        dispatch(logout())
+    }
     return (
         <div className='border-b py-4 px-5 flex items-center justify-between'>
             <div className='flex items-center gap-3'>
@@ -25,7 +34,7 @@ function Navigation() {
                 </Dialog>
                 <Button variant="ghost" className="cursor-pointer" onClick={()=>navigate("/upgrade_plan")}>Upgrade</Button>
             </div>
-            <h1 className="text-red-800">Linking of the backend is pending... Soon will be live fully. Thank You!</h1>
+            <h1 className="text-red-800">Subscription model is down due to API conflict... Soon will be live fully, Until enjoy using all features. Thank You!</h1>
             <div className='flex gap-3 items-center'>
                 <DropdownMenu>
                     <DropdownMenuTrigger>
@@ -34,10 +43,10 @@ function Navigation() {
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
-                        <DropdownMenuItem >Logout</DropdownMenuItem>
+                        <DropdownMenuItem onClick={handleLogout} >Logout</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
-                <p>Shubhankar Sharma</p>
+                <p>{auth.user?.fullName}</p>
             </div>
         </div>
     )

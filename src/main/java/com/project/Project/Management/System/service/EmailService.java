@@ -7,5 +7,5 @@ import org.springframework.stereotype.Service;
 
 public interface EmailService {
 
-    void sendEmailWithToken(String usreEmail,String Link) throws MessagingException;
+    void sendEmailWithToken(String userEmail,String Link) throws MessagingException;
 }

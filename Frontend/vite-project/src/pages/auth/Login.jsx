@@ -1,8 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { login } from '@/redux/Auth/Action';
 import React from 'react'
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 
 function Login() {const form = useForm({
   defaultValues: {
@@ -11,13 +13,16 @@ function Login() {const form = useForm({
   }
 })
 
+const dispatch = useDispatch();
+
 
 const onSubmit = (data) => {
-  console.log("Create project data", data);
+  dispatch(login(data))
+  console.log("login data", data);
 }
 return (
   <div className='space-y-5'>
-    <h1>Register</h1>
+    <h1>Signin</h1>
     <Form {...form}>
       <form className='space-y-5' onSubmit={form.handleSubmit(onSubmit)}>
         <FormField control={form.control}
@@ -48,8 +53,9 @@ return (
 
 
         <Button type="submit" className="w-full mt-5">
-          Register
+          Signin
         </Button>
+        
 
       </form>
 

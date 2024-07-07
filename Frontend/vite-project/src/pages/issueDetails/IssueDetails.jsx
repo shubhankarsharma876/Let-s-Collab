@@ -1,29 +1,41 @@
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import CreateCommentForm from './CreateCommentForm';
 import CommentCard from './CommentCard';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchIssuesById, updateIssueStatus } from '@/redux/issues/Action';
 
 
 function IssueDetails() {
   const { projectId, issueId } = useParams();
+  const dispatch = useDispatch();
   const handleUpdateIssueStatus = (status) => {
+    dispatch(updateIssueStatus({id:issueId,status}))
     console.log(status);
   }
+  const{issue} = useSelector(store=>store)
+  
+  useEffect(() => {
+    // console.log(issue)
+    dispatch(fetchIssuesById(issueId))
+  }, [issueId])
   return (
     <div className='px-20 py-8 text-gray-400'>
       <div className='flex justify-between border p-10 rounded-lg'>
         <ScrollArea className>
           <div className='h-[80vh] w-[60%]'>
-            <h1 className='text-lg font-semibold text-gray-400'>Create Navbar</h1>
+            <h1 className='text-lg font-semibold text-gray-400'>
+              {issue.issueDetail?.title}
+            </h1>
 
             <div className='py-5'>
               <h2 className='font-semibold text-gray-400'>Description</h2>
-              <p className='text-grey-400 text-sm mt-3'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore amet dolorum facilis minima maiores aliquam explicabo autem, magni incidunt non.</p>
+              <p className='text-grey-400 text-sm mt-3'>{issue.issueDetail?.description}</p>
             </div>
 
             <div className='mt-5'>
@@ -77,12 +89,12 @@ function IssueDetails() {
               <div className='space-y-7'>
                 <div className='flex gap-10 items-center'>
                   <p className='w-[7rem]'>Assignee</p>
-                  <div className='flex items-center gap-3'>
+                  {issue.issueDetail?.assignee?<div className='flex items-center gap-3'>
                     <Avatar className="h-8 w-8 text-xs">
                       <AvatarFallback>S</AvatarFallback>
                     </Avatar>
-                    <p>Shubhankar Sharma</p>
-                  </div>
+                    <p>{issue.issueDetail?.fullName}</p>
+                  </div>:<p>Unassigneed</p>}
                 </div>
                 <div className='flex gap-10 items-center'>
                   <p className='w-[7rem]'>Label</p>
@@ -93,7 +105,7 @@ function IssueDetails() {
                 <div className='flex gap-10 items-center'>
                   <p className='w-[7rem]'>Status</p>
                   <div className='flex items-center gap-3'>
-                    <Badge>in_process</Badge>
+                    <Badge>{issue.issueDetail?.status}</Badge>
                   </div>
                 </div>
                 <div className='flex gap-10 items-center'>

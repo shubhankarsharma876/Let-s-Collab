@@ -35,9 +35,9 @@ public class IssueServiceImpl implements IssueService{
     }
 
     @Override
-    public List<Issue> getIssueByProjectId(Long ProjectId) throws Exception {
+    public List<Issue> getIssueByProjectId(Long projectId) throws Exception {
 
-        return issueRepository.getIssueByProjectId(ProjectId);
+        return issueRepository.getIssueByProjectId(projectId);
     }
 
     @Override
@@ -56,11 +56,10 @@ public class IssueServiceImpl implements IssueService{
     }
 
     @Override
-    public String deleteIssue(Long issueId, Long userId) throws Exception {
+    public void deleteIssue(Long issueId, Long userId) throws Exception {
         // this itself will provide either it is true and false and then only it will move to next line.
         getIssueById(issueId);
         issueRepository.deleteById(issueId);
-        return null;
     }
 
     @Override

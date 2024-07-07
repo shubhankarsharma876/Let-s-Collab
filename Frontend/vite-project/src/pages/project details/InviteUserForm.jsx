@@ -4,6 +4,9 @@ import { Input } from '@/components/ui/input'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { Button } from '@/components/ui/button'
+import { useDispatch } from 'react-redux'
+import { inviteToProject } from '@/redux/project/Action'
+import { useParams } from 'react-router-dom'
 
 
 function InviteUserForm() {
@@ -13,10 +16,13 @@ function InviteUserForm() {
         
     }
 })
+const dispatch = useDispatch();
+const{id} = useParams()
 
 
 const onSubmit = (data) => {
     console.log("Create project data", data);
+    dispatch(inviteToProject({email:data.email,projectId:id}))
 }
   return (
     <>

@@ -16,7 +16,7 @@ public interface IssueService {
 
 //    Optional<Issue> updateIssue(Long issueId,IssueRequest updateIssue,Long userId) throws IssueException, UserException;
 
-    String deleteIssue(Long issueId, Long userId) throws Exception;
+    void deleteIssue(Long issueId, Long userId) throws Exception;
 
     Issue addUserToIssue(Long issueId,Long userId)throws Exception;
 

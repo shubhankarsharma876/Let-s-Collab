@@ -28,13 +28,14 @@ public class CommentController {
     @PostMapping
     public ResponseEntity<Comment> createComment(
             @RequestBody CreateCommentRequest req,
-            @RequestHeader("Authorization") String jwt) throws Exception{
+            @RequestHeader("Authorization") String jwt) throws Exception {
+        if (req.getIssueID() == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         User user = userService.findUserProfileByJwt(jwt);
-        Comment createdComment = commentService.createComment(req.getIssueID(),user.getId(),req.getContent());
+        Comment createdComment = commentService.createComment(req.getIssueID(), user.getId(), req.getContent());
         return new ResponseEntity<>(createdComment, HttpStatus.CREATED);
-
     }
-
     @DeleteMapping("/{commentId}")
     public ResponseEntity<MessageResponse> deleteComment(@PathVariable Long commentId, @RequestHeader("Authorization")String jwt)throws Exception{
         User user = userService.findUserProfileByJwt(jwt);

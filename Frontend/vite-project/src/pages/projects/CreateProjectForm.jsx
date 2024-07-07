@@ -1,9 +1,9 @@
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form'
-import { Description, DialogClose } from '@radix-ui/react-dialog'
+import { DialogClose } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { Dialog } from '@/components/ui/dialog'
+
 import { Button } from '@/components/ui/button'
 import {
     Select,
@@ -14,8 +14,12 @@ import {
 } from "@/components/ui/select"
 import { tags } from '../ProjectList/ProjectList'
 import { Cross1Icon } from '@radix-ui/react-icons'
+import { useDispatch } from 'react-redux'
+import { createProjects } from '@/redux/project/Action'
 
 function CreateProjectForm() {
+
+    const dispatch = useDispatch();
     const form = useForm({
         defaultValues: {
             name: "",
@@ -34,6 +38,7 @@ function CreateProjectForm() {
 
     const onSubmit = (data) => {
         console.log("Create project data", data);
+        dispatch(createProjects(data))
     }
     return (
         <div>

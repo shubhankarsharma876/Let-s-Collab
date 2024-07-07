@@ -28,13 +28,15 @@ public class IssueController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/project/{issueId}")
-    public ResponseEntity<List<Issue>> getIssueByProjectId(@PathVariable Long projectId) throws Exception{
+    @GetMapping("/project/{projectId}")
+    public ResponseEntity<List<Issue>> getIssuesByProjectId(@PathVariable Long projectId) throws Exception{
         return ResponseEntity.ok(issueService.getIssueByProjectId(projectId));
+
+        //http://localhost:8080/api/issues/project/405
     }
 
     @GetMapping("/{projectId}")
-    public ResponseEntity<Issue> getIssuByProjectId(@PathVariable Long projectId) throws Exception{
+    public ResponseEntity<Issue> getIssueByProjectId(@PathVariable Long projectId) throws Exception{
         return ResponseEntity.ok(issueService.getIssueById(projectId));
     }
 
@@ -67,7 +69,7 @@ public class IssueController {
     @DeleteMapping("/{issueId}")
     public ResponseEntity<MessageResponse> deleteIssue(@PathVariable Long issueId, @RequestHeader("Authorization") String token)throws Exception{
         User user = userService.findUserProfileByJwt(token);
-        String deleted = issueService.deleteIssue(issueId,user.getId());
+        issueService.deleteIssue(issueId,user.getId());
         MessageResponse res = new MessageResponse();
         res.setMessage("Issue Deleted");
 

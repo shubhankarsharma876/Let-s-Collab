@@ -37,8 +37,37 @@ public class AuthController {
     @Autowired
     private SubscriptionService subscriptionService;
 
+//    @PostMapping("/signup")
+//    public ResponseEntity<User> createUserHandler(@RequestBody User user) throws Exception {
+//        User isUserExist=userRepository.findByEmail(user.getEmail());
+//
+//        if(isUserExist!=null){
+//            throw new Exception("email already exists with other account");
+//        }
+//
+//        User createdUser = new User();
+//        createdUser.setPassword(passwordEncoder.encode(user.getPassword()));
+//        createdUser.setEmail(user.getEmail());
+//        createdUser.setFullName(user.getFullName());
+//
+//        User savedUser=userRepository.save(createdUser);
+//
+//        subscriptionService.createSubscription(savedUser);
+//
+//        Authentication authentication = new UsernamePasswordAuthenticationToken(user.getEmail(),user.getPassword());
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//
+//        String jwt = JwtProvider.generateToken(authentication);
+//
+//        AuthResponse res = new AuthResponse();
+//        res.setMessage("Signup success");
+//        res.setJwt(jwt);
+//        return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
+//    }
+
+
     @PostMapping("/signup")
-    public ResponseEntity<User> createUserHandler(@RequestBody User user) throws Exception {
+    public ResponseEntity<AuthResponse> createUserHandler(@RequestBody User user) throws Exception {
         User isUserExist=userRepository.findByEmail(user.getEmail());
 
         if(isUserExist!=null){
@@ -62,7 +91,7 @@ public class AuthController {
         AuthResponse res = new AuthResponse();
         res.setMessage("Signup success");
         res.setJwt(jwt);
-        return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
+        return new ResponseEntity<>(res, HttpStatus.CREATED);
     }
 
 

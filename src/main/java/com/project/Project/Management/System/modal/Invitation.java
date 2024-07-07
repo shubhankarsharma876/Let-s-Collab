@@ -23,6 +23,6 @@ public class Invitation {
 
     private String email;
 
-    private Long projectid;
+    private Long projectId;
 
 }

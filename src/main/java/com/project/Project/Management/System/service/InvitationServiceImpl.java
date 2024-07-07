@@ -22,12 +22,12 @@ public class InvitationServiceImpl implements InvitationService {
         Invitation invitation = new Invitation();
 
         invitation.setEmail(email);
-        invitation.setProjectid(projectId);
+        invitation.setProjectId(projectId);
         invitation.setToken(invitationToken);
         invitationRepository.save(invitation);
 
 
-        String invitationLink= "http://localhost:5173/accept_invitation?token"+invitationToken;
+        String invitationLink= "http://localhost:5173/accept_invitation?token="+invitationToken;
         emailService.sendEmailWithToken(email,invitationLink);
     }
 

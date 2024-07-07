@@ -4,6 +4,7 @@ import ProjectList from '../ProjectList/ProjectList'
 function home() {
   return (
     <div>
+      
         <ProjectList/>
     </div>
   )

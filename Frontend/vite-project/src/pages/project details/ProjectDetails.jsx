@@ -5,12 +5,22 @@ import { Button } from '@/components/ui/button'
 import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTrigger } from '@/components/ui/dialog'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { PlusIcon } from '@radix-ui/react-icons'
-import React from 'react'
+import React, { useEffect } from 'react'
 import InviteUserForm from './InviteUserForm'
 import IssueList from './IssueList'
 import ChatBox from './ChatBox'
+import { useDispatch, useSelector } from 'react-redux'
+import { featchProjectsById } from '@/redux/project/Action'
+import { useParams } from 'react-router-dom'
+import { store } from '@/redux/Store'
 
 function ProjectDetails() {
+    const dispatch = useDispatch()
+    const {id} = useParams()
+    const {project} = useSelector(store=>store)
+    useEffect(()=>{
+        dispatch(featchProjectsById(id))
+    },[id])
 
     const handleProjectInvitation = () => {
 
@@ -21,24 +31,27 @@ function ProjectDetails() {
                 <div className='lg:flex gap-5 justify-between pb-4'>
                     <ScrollArea className="h-screen lg:w-[69%] pr-2">
                         <div className='text-gray-400 pb-10 w-full'>
-                            <h1 className='text-lg font-semibold pb-5'>Create E Commerce Website</h1>
+                            <h1 className='text-lg font-semibold pb-5'>
+                                {project.projectDetails?.name}
+                                {console.log(project)}
+                            </h1>
 
                         </div>
                         <div className='space-y-5 pb-10 text-sm'>
                             <p className='w-full md:max-w-lg lg:max-w-xl '>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum possimus molestiae tempora quisquam quasi maiores iste, dolor facere, nam iure aliquam nesciunt sunt tempore, debitis consectetur ullam ab autem? Placeat voluptatum similique, blanditiis repellat aut, optio quis hic ut obcaecati deserunt reprehenderit ad, cupiditate vero doloremque assumenda. Sequi, nesciunt omnis!
+                            {project.projectDetails?.description}
                             </p>
                             <div className='flex'>
                                 <p className='w-36'>Project Lead :</p>
-                                <p></p>
+                                <p>{project.projectDetails?.owner.fullName}</p>
                             </div>
 
                             <div className='flex'>
                                 <p className='w-36'>Members :</p>
                                 <div className='flex items-center gap-2'>
 
-                                    {[1, 1, 1, 1].map((item) => <Avatar className="cursor-pointer" key={item}>
-                                        <AvatarFallback>S</AvatarFallback >
+                                    {project.projectDetails?.team.map((item) => <Avatar className="cursor-pointer" key={item}>
+                                        <AvatarFallback>{item.fullName?item.fullName[0]:item.email[0].toUpperCase()}</AvatarFallback >
                                     </Avatar>)}
 
                                 </div>
@@ -64,7 +77,7 @@ function ProjectDetails() {
 
                             <div className='flex'>
                                 <p className='w-36'>Status :</p>
-                                <Badge>In Process</Badge>
+                                <Badge>In Progress</Badge>
                             </div>
 
                         </div>

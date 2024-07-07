@@ -10,7 +10,6 @@ import javax.crypto.SecretKey;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
-//JwtUtile
 
 public class JwtProvider {
     static SecretKey key = Keys.hmacShaKeyFor(JwtConstant.SECREATE_KEY.getBytes());
